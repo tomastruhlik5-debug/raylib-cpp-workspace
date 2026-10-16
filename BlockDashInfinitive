@@ -1,0 +1,45 @@
+#include "raylib.h"
+
+int main() {
+
+    InitWindow(1100, 900, "Block Dash");
+    SetTargetFPS(60);
+
+    float kruhX = 550.0f;
+    float kruhY = 450.0f;
+    float polomer = 30.0f;
+
+    int zmenaPolomeru = 0;
+    int vzhledObrazovky = 0;
+
+    Rectangle hlavniPodlaha = {100.0f, 100.0f, 900.0f, 700.0f};
+    Rectangle tlacitkoHrat = {275.0f, 225.0f, 825.0f, 675.0f};
+
+    while (!WindowShouldClose()) {
+
+        if (vzhledObrazovky == 1) {
+            if (IsKeyDown(KEY_W) || IsKeyDown(KEY_UP)) kruhY -= 3.0f;
+            if (IsKeyDown(KEY_S) || IsKeyDown(KEY_DOWN)) kruhY += 3.0f;
+            if (IsKeyDown(KEY_A) || IsKeyDown(KEY_LEFT)) kruhX -= 3.0f;
+            if (IsKeyDown(KEY_D) || IsKeyDown(KEY_RIGHT)) kruhX += 3.0f;
+
+            if (zmenaPolomeru == 0) polomer = 30.0f;
+            if (zmenaPolomeru == 1) polomer -= 1.0f;
+            if (zmenaPolomeru == 2) polomer += 1.0f;
+        }
+
+        BeginDrawing();
+
+            ClearBackground(BLACK);
+
+            if (vzhledObrazovky == 1) {
+                DrawCircleV({kruhX, kruhY}, polomer, YELLOW);
+                DrawRectangleRec(hlavniPodlaha, DARKPURPLE);
+            }
+
+        EndDrawing();
+    }
+
+    CloseWindow();
+    return 0;
+}
